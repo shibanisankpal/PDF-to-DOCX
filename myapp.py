@@ -1,5 +1,5 @@
 import streamlit as st
-import fitz  
+from PyMuPDF import fitz
 from docx import Document
 from io import BytesIO
 
