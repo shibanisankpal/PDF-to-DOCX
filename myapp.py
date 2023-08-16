@@ -1,15 +1,16 @@
 import streamlit as st
-import fitz
+import PyPDF2
 from docx import Document
 from io import BytesIO
 
 def pdf_to_docx(pdf_file):
     doc = Document()
-    pdf_document = fitz.open(stream=pdf_file.read())
     
-    for page_number in range(pdf_document.page_count):
-        page = pdf_document[page_number]
-        text = page.get_text("text")
+    pdf_reader = PyPDF2.PdfReader(pdf_file)
+    
+    for page_number in range(len(pdf_reader.pages)):
+        page = pdf_reader.pages[page_number]
+        text = page.extract_text()
         doc.add_paragraph(text)
     
     docx_stream = BytesIO()
